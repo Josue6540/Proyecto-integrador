@@ -1,0 +1,47 @@
+@extends('adminlte::page')
+
+@section('title', 'Editar cita')
+
+@section('content_header')
+    <h1>Editar</h1>
+@stop
+
+@section('content')
+   <form action="/jefecarrera/{{$docente->id}}" method="POST">
+   @csrf
+   @method('PUT')
+   <div class="mb-3">
+    <label for="" class="form-label">Nombre</label>
+    <input id="Nombre" name="Nombre" type="text" class="form-control" tabindex="1">
+  </div>
+  <div class="mb-3">
+    <label for="" class="form-label">Apellidos Paterno</label>
+    <input id="paterno" name="paterno" type="text" class="form-control" tabindex="2">
+  </div>
+  <div class="mb-3">
+    <label for="" class="form-label">Apellido Materno</label>
+    <input id="materno" name="materno" type="text" class="form-control" tabindex="3">
+  </div>
+  <div class="mb-3">
+    <label for="" class="form-label">Numero de personal</label>
+    <input id="num_personal" name="num_personal" type="text" step="any" class="form-control" tabindex="3">
+  </div>
+  <div class="mb-3">
+      <label for="" class="form-label">Correo Electronico</label>
+      <input id="email" name="email" type="text" class="form-control" tabindex="3">
+    </div>
+    <div class="mb-3">
+      <label for="" class="form-label">Password</label>
+      <input id="password" name="password" type="text" class="form-control" tabindex="3">
+    </div>
+  <a href="/jefecarrera" class="btn btn-secondary">Cancelar</a>
+  <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop
+
+@section('js')
+@stop
