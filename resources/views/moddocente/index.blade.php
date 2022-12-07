@@ -46,7 +46,7 @@
                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
                   <div class="full">
                      <div class="center-desk">
-                        <div class="logo"> <a href="index.html">UTGZ</a> </div>
+                        <div class="logo"> <a href="/">UTGZ</a> </div>
                      </div>
                   </div>
                </div>
@@ -55,7 +55,6 @@
                      <div class="limit-box">
                         <nav class="main-menu">
                            <ul class="menu-area-main">
-                              <li> <a href="#contact"> Contactanos</a> </li>
                               @auth
                               @if(Auth::user()->rol === 'docente')
                               <li> <a href="/alumnosasignados">Alumnos Asignados</a> </li>
@@ -85,109 +84,37 @@
          <!-- end header inner -->
       </header>
       <!-- end header -->
-      <section class="slider_section">
-         <div id="myCarousel" class="carousel slide banner-main" data-ride="carousel">
-            <div class="carousel-inner">
-               <div class="carousel-item active">
-                  <img class="first-slide" src="https://becas-mexico.mx/wp-content/uploads/2019/05/becas-mexico-2019-estudia-en-Universidad-Tecnologica-de-Gutierrez-1280x720.jpg" alt="First slide">
-                  <div class="container">
-                     <div class="carousel-caption relative">
-                        <h1>Universidad Tecnológica de Gutiérrez Zamora</h1>
-                     </div>
-                  </div>
-               </div>
-               <div class="carousel-item">
-                  <img class="second-slide" src="https://becas-mexico.mx/wp-content/uploads/2019/05/becas-mexico-2019-estudia-en-Universidad-Tecnologica-de-Gutierrez-1280x720.jpg">
-                  <div class="container">
-                     <div class="carousel-caption relative">
-                        <h1>Universidad Tecnológica de Gutiérrez Zamora</h1>
-                     </div>
-                  </div>
-               </div>
-               <div class="carousel-item">
-                  <img class="third-slide" src="https://becas-mexico.mx/wp-content/uploads/2019/05/becas-mexico-2019-estudia-en-Universidad-Tecnologica-de-Gutierrez-1280x720.jpg" alt="Third slide">
-                  <div class="container">
-                     <div class="carousel-caption relative">
-                        <div class="col-md-12">
-                           <div class="titlepage">
-                              <h1>Universidad Tecnológica de Gutiérrez Zamora</h1>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
-            <i class='fa fa-angle-left'></i>
-            </a>
-            <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
-            <i class='fa fa-angle-right'></i>
-            </a>
-            <a class="bottom_arrow_scroll" href="#about"><img src="icon/errow.png" /></a>
-         </div>
-      </section>
-<!-- about  -->
-      <div id="about" class="about">
-         <div class="container">
-            <div class="row">
-               <div class="col-md-12">
-                  <div class="titlepage">
-                     <h2>Estadias Profecionales</h2>
-                     <span>Dentro de la UTGZ es indispensable cursar un periodo de tiempo realizando practicas profecionales dentro de una empresa</span>
-                  </div>
-               </div>
-            </div>
-         </div>
+      <div class="container">
 
-      <!-- end abouts -->
+      
+      <table id="alumno" class="table table-striped table-bordered shadow-lg mt-4" style="width:100%">
+        <thead class="bg-primary text-white">
+            <tr>
+                <th scope="col">Matrícula</th>
+                <th scope="col">Alumno</th>
+                <th scope="col">Carrera</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($asigns as $asign)
+            <tr>
+                <td style="color:black">{{$asign->matricula}}</td>
+                <td style="color:black">{{$asign->namea}} {{$asign->paternoa}} {{$asign->maternoa}}</td>
+                <td style="color:black">{{$asign->carrera}}</td>
+                <td>
+                    <a href="/proyecto/{{$asign->alumno_id}}" class="btn btn-success">Proyecto</a>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+        </table>
 
-<!-- Download -->
+        </div>
+
 
 <!-- service -->
 
-      <!-- end service -->
-      <!-- our blog -->
 
-      <!-- end our blog -->
-      <!-- Testimonial -->
-      <div id="contact" class="contact">
-         <div class="container">
-            <div class="row">
-               <div class="col-md-12">
-                  <div class="titlepage">
-                     <h3>Contactanos</h3>
-                  </div>
-               </div>
-            </div>
-            <div class="row">
-
-               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 offset-md-3">
-                  <div class="contact">
-
-                     <form>
-                        <div class="row">
-                           <div class="col-sm-12">
-                              <input class="contactus" placeholder="Nombre" type="text" name="Name">
-                           </div>
-                           <div class="col-sm-12">
-                              <input class="contactus" placeholder="Telefono" type="text" name="Email">
-                           </div>
-                           <div class="col-sm-12">
-                              <input class="contactus" placeholder="Correo Elctronico" type="text" name="Email">
-                           </div>
-                           <div class="col-sm-12">
-                              <textarea class="textarea" placeholder="Mensaje" type="text" name="Message"></textarea>
-                           </div>
-                           <div class="col-sm-12">
-                              <button class="send">Enviar</button>
-                           </div>
-                        </div>
-                     </form>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
       <!-- end Testimonial -->
       <!--  footer -->
       <footr>

@@ -16,9 +16,9 @@ class CreateReportesTable extends Migration
         Schema::create('reportes', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->float('status');
-            $table->date('fecha');
+            //$table->float('status');
             $table->string('reporte');
+            $table->integer('alumno_id');
             $table->timestamps();
         });
     }

@@ -26,7 +26,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'parerno',
+        'paterno',
         'materno',
         'rol',
         'email',
@@ -65,7 +65,13 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function alumno(){
-        return $this->belongsTo(Alumno::Class);
+    public function docente()
+    {
+        return $this->hasOne(Docente::class);
+    }
+
+    public function alumno()
+    {
+        return $this->hasOne(Alumno::class);
     }
 }

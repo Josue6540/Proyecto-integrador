@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Docente;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 
 class DocentesController extends Controller
@@ -38,7 +41,26 @@ class DocentesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'email' => 'required|string|unique:users,email',
+            'matricula' => 'required|string|unique:docentes,num_personal',
+        ]);
+
+        $user = new User();
+        $user->name= $request->Nombre;
+        $user->paterno = $request->Apellido_p;
+        $user->materno = $request->Apellido_m;
+        $user->rol= 'docente';
+        $user->email = $request->email;
+        $user->password = Hash::make($request->paswword);
+        $user->save();
+
+        DB::table('docentes')->insert([
+            'num_personal' => $request->matricula,
+            'user_id' => $user->id
+        ]);
+
+        return redirect('/docente');
     }
 
     /**
@@ -60,7 +82,8 @@ class DocentesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $docente = Docente::find($id);
+        return view('docente.edit', compact('docente'));
     }
 
     /**
@@ -72,7 +95,28 @@ class DocentesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'num_personal' => 'required|string|unique:docentes,num_personal,'.$id,
+        ]);
+
+        DB::table('docentes')
+              ->where('id', $id)
+              ->update(['num_personal' => $request->num_personal]);
+        $docente = Docente::find($id);
+        $request->validate([
+            'email' => 'required|string|unique:users,email,'.$docente->user_id,
+        ]);
+        $user = User::find($docente->user_id);
+        $user->name= $request->Nombre;
+        $user->paterno = $request->paterno;
+        $user->materno = $request->materno;
+        $user->email = $request->email;
+        if(isset($request->password)){
+            $user->password = Hash::make($request->password);
+        }
+        $user->save();
+
+        return redirect('/docente');
     }
 
     /**
@@ -83,6 +127,9 @@ class DocentesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $docente = Docente::find($id);
+        Docente::destroy($id);
+        User::destroy($docente->user_id);
+        return redirect('/docente');
     }
 }

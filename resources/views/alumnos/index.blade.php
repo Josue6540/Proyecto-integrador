@@ -32,14 +32,14 @@
         @foreach ($alumnos as $alumno)
         <tr>
             <td>{{$alumno->id}}</td>
-            <td>{{$alumno->nombre}}</td>
-            <td>{{$alumno->paterno}}</td>
-            <td>{{$alumno->materno}}</td>
+            <td>{{$alumno->user->name}}</td>
+            <td>{{$alumno->user->paterno}}</td>
+            <td>{{$alumno->user->materno}}</td>
             <td>{{$alumno->matricula}}</td>
-            <td>{{$alumno->carrera}}</td>
+            <td>{{$alumno->carrera->nombre}}</td>
             <td>{{$alumno->modalidad->nombre}}</td>
             <td>{{$alumno->sistema->nombre}}</td>
-            <td>{{$alumno->email}}</td>
+            <td>{{$alumno->user->email}}</td>
 
 
             <td>

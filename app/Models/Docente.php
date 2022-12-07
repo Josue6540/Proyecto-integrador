@@ -23,4 +23,8 @@ class Docente extends Model
     public function jefe_carrera(){
         return $this->belongsTo(Jefe_Carrera::Class);
     }
+
+    public function user(){
+        return $this->belongsTo(User::Class, 'user_id');
+    }
 }

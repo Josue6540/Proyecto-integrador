@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEvaluacionsTable extends Migration
+class Document extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateEvaluacionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('evaluacions', function (Blueprint $table) {
+        Schema::create('documents', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
             //$table->float('status');
-            $table->string('evaluacion');
+            $table->string('document')->nullable();
+            $table->string('type');
             $table->integer('alumno_id');
             $table->timestamps();
         });
@@ -30,6 +31,6 @@ class CreateEvaluacionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('evaluacions');
+        Schema::dropIfExists('documents');
     }
 }

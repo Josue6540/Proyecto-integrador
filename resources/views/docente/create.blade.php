@@ -13,28 +13,38 @@
   @csrf
   <div class="mb-3">
     <label for="" class="form-label">Nombre</label>
-    <input id="Nombre" name="Nombre" type="text" class="form-control" tabindex="1">
+    <input id="Nombre" name="Nombre" type="text" class="form-control" required tabindex="1">
   </div>
   <div class="mb-3">
     <label for="" class="form-label">Apellido Paterno</label>
-    <input id="Apellido_p" name="Apellido_p" type="text" class="form-control" tabindex="2">
+    <input id="Apellido_p" name="Apellido_p" type="text" class="form-control" required tabindex="2">
   </div>
   <div class="mb-3">
     <label for="" class="form-label">Apellido Materno</label>
-    <input id="Apellido_m" name="Apellido_m" type="text" class="form-control" tabindex="3">
+    <input id="Apellido_m" name="Apellido_m" type="text" class="form-control" required tabindex="3">
   </div>
   <div class="mb-3">
     <label for="" class="form-label">Numero de Personal</label>
-    <input id="matricula" name="matricula" type="text" class="form-control" tabindex="3">
+    <input id="matricula" name="matricula" type="text" class="form-control" required tabindex="3">
+    @error('matricula')
+      <small>
+          <strong>{{ $message }}</strong>
+      </small>
+    @enderror
   </div>
 
   <div class="mb-3">
     <label for="" class="form-label">Correo Electronico</label>
-    <input id="email" name="email" type="text" class="form-control" tabindex="3">
+    <input id="email" name="email" type="text" class="form-control" required tabindex="3">
+    @error('email')
+      <small>
+          <strong>{{ $message }}</strong>
+      </small>
+    @enderror
   </div>
   <div class="mb-3">
     <label for="" class="form-label">Password</label>
-    <input id="password" name="paswword" type="text" class="form-control" tabindex="3">
+    <input type="password" id="password" name="paswword" class="form-control" required tabindex="3">
   </div>
 
 

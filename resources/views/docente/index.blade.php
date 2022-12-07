@@ -8,7 +8,7 @@
 @stop
 
 @section('content')
-   <a href="cita/create" class="btn btn-primary mb-3">CREAR</a>
+   <a href="docente/create" class="btn btn-primary mb-3">CREAR</a>
    <div class="mb-3">
     <label for="formFile" class="form-label">Carga Docentes</label>
     <input class="form-control" type="file" id="logo" name='cdocente'>
@@ -30,13 +30,12 @@
     <tbody>
         @foreach ($docentes as $docente)
         <tr>
-            <td>{{ $docente->id}}</td>
-            <td>{{$docente->nombre}}</td>
-            <td>{{$docente->paterno}}</td>
-            <td>{{$docente->materno}}</td>
+            <td>{{$docente->user->id}}</td>
+            <td>{{$docente->user->name}}</td>
+            <td>{{$docente->user->paterno}}</td>
+            <td>{{$docente->user->materno}}</td>
             <td>{{$docente->num_personal}}</td>
-            <td>{{$docente->email}}</td>
-            <td>{{$docente->password}}</td>
+            <td>{{$docente->user->email}}</td>
 
             <td>
                 <form action="{{ route ('docente.destroy',$docente->id)}}" method="POST">

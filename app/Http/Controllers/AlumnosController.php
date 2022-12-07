@@ -7,6 +7,9 @@ use App\Models\Alumno;
 use App\Models\Carrera;
 use App\Models\Modalidad;
 use App\Models\Sistema;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class AlumnosController extends Controller
 {
@@ -28,7 +31,10 @@ class AlumnosController extends Controller
      */
     public function create()
     {
-        return view('alumnos.create');
+        $modalidades = Modalidad::all();
+        $sistemas = Sistema::all();
+        $carreras = Carrera::all();
+        return view('alumnos.create')->with(['modalidades'=>$modalidades, 'sistemas'=> $sistemas, 'carreras'=> $carreras]);
     }
 
     /**
@@ -38,23 +44,28 @@ class AlumnosController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        $alumnos = new Alumno();
+    {   
+        $request->validate([
+            'email' => 'required|email|unique:users,email',
+            'matricula' => 'required|unique:alumnos,matricula',
+        ]);
 
-        $alumnos->nombre= $request->Nombre;
-        $alumnos->paterno = $request->paterno;
-        $alumnos->materno = $request->materno;
-        $alumnos->matricula= $request->matricula;
-        $alumnos->carrera= $request->carrera;
-        $alumnos->email = $request->email;
-        $alumnos->password = $request->password;
+        $user = new User();
+        $user->name= $request->Nombre;
+        $user->paterno = $request->Apellido_p;
+        $user->materno = $request->Apellido_m;
+        $user->rol= 'alumno';
+        $user->email = $request->email;
+        $user->password = Hash::make($request->paswword);
+        $user->save();
 
-
-
-
-        $alumnos->save();
-
-
+        DB::table('alumnos')->insert([
+            'matricula' => $request->matricula,
+            'carrera_id' => $request->carrera,
+            'modalidad_id' => $request->modalidad,
+            'sistema_id' => $request->sistema,
+            'user_id' => $user->id
+        ]);
 
         return redirect('/alumno');
     }
@@ -81,8 +92,8 @@ class AlumnosController extends Controller
         $alumnos = Alumno::find($id);
         $modalidades = Modalidad::all();
         $sistemas = Sistema::all();
-        $carrera = Carrera::all();
-        return view('carrera.edit',['modalidades'=>$modalidades,'sistemas'=>$sistemas,'carrera'=>$carrera, 'alumnos'=>$alumnos]);
+        $carreras = Carrera::all();
+        return view('alumnos.edit',['modalidades'=>$modalidades,'sistemas'=>$sistemas,'carreras'=>$carreras, 'alumnos'=>$alumnos]);
     }
 
     /**
@@ -94,21 +105,31 @@ class AlumnosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $modalidades = Modalidad::all();
-        $sistemas = Sistema::all();
-        $carreras = Carrera::all();
-        $alumnos = Alumno::find($id);
-        $alumnos->nombre= $request->Nombre;
-        $alumnos->paterno = $request->paterno;
-        $alumnos->materno = $request->materno;
-        $alumnos->matricula= $request->matricula;
-        $alumnos->carrera= $request->carrera;
-        $alumnos->email = $request->email;
-        $alumnos->password = $request->password;
-
-
-        $alumnos->save();
-        return redirect('alumno');
+        $request->validate([
+            'matricula' => 'required|unique:alumnos,matricula,'.$id,
+        ]);
+        DB::table('alumnos')
+              ->where('id', $id)
+              ->update([
+            'matricula' => $request->matricula,
+            'carrera_id' => $request->carrera,
+            'modalidad_id' => $request->modalidad,
+            'sistema_id' => $request->sistema,
+        ]);
+        $alumno = Alumno::find($id);
+        $request->validate([
+            'email' => 'required|email|unique:users,email,'.$alumno->user_id,
+        ]);
+        $user = User::find($alumno->user_id);
+        $user->name= $request->Nombre;
+        $user->paterno = $request->Apellido_p;
+        $user->materno = $request->Apellido_m;
+        $user->email = $request->email;
+        if(isset($request->password)){
+            $user->password = Hash::make($request->password);
+        }
+        $user->save();
+        return redirect('/alumno');
     }
 
     /**
@@ -121,6 +142,7 @@ class AlumnosController extends Controller
     {
         $alumnos = Alumno::find($id);
         $alumnos->delete();
+        User::destroy($alumnos->user_id);
         return redirect('/alumno');
     }
 }

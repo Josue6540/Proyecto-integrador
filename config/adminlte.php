@@ -346,8 +346,11 @@ return [
             'url'  => '/proovedores',
             'icon' => 'fas fa-fw fa-lock',
         ],
-
-
+        [
+            'text' => 'Asignaciones',
+            'url'  => '/asignar',
+            'icon' => 'fas fa-fw fa-lock',
+        ],
 
 
     ],

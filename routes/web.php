@@ -29,8 +29,22 @@ Route::resource('evaluacion','App\Http\Controllers\EvaluacionesController')->mid
 Route::resource('reporte','App\Http\Controllers\ReportesController')->middleware('admin');
 Route::resource('docente','App\Http\Controllers\DocentesController')->middleware('admin');
 Route::resource('jefecarrera','App\Http\Controllers\JefeCarrerasController')->middleware('admin');
+Route::resource('asignar','App\Http\Controllers\AsignarController')->middleware('admin');
+Route::get('tsu','App\Http\Controllers\AsignarController@tsu')->middleware('admin');
+Route::post('tsuasignar','App\Http\Controllers\AsignarController@tsuasignar')->middleware('admin');
+Route::get('ing','App\Http\Controllers\AsignarController@ing')->middleware('admin');
+Route::post('ingasignar','App\Http\Controllers\AsignarController@ingasignar')->middleware('admin');
 
+Route::get('alumnosasignados','App\Http\Controllers\AsignarDocenteController@alumnosasignados')->middleware('docente');
+Route::get('proyecto/{alumno}','App\Http\Controllers\AsignarDocenteController@proyecto')->middleware('docente');
 
+Route::get('documents','App\Http\Controllers\AsignarDocenteController@documents');
+Route::post('carta_aceptacion','App\Http\Controllers\AsignarDocenteController@carta_aceptacion');
+Route::post('carta_presentacion','App\Http\Controllers\AsignarDocenteController@carta_presentacion');
+Route::post('titulo','App\Http\Controllers\AsignarDocenteController@titulo');
+Route::post('reportes','App\Http\Controllers\AsignarDocenteController@reportes');
+Route::post('evaluaciones','App\Http\Controllers\AsignarDocenteController@evaluaciones');
+Route::post('carta_liberacion','App\Http\Controllers\AsignarDocenteController@carta_liberacion');
 
 
 
