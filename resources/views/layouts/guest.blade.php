@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="{{ asset('css/app.css')}}">
 
         <!-- Scripts -->
+        @laravelPWA
     </head>
     <body>
         <div class="font-sans text-gray-900 antialiased">

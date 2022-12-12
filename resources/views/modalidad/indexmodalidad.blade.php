@@ -12,14 +12,12 @@
 <table id="modalidads" class="table table-striped table-bordered shadow-lg mt-4" style="width:100%">
     <thead class="bg-primary text-white">
         <tr>
-            <th scope="col">ID</th>
             <th scope="col">Nombre</th>
         </tr>
     </thead>
     <tbody>
         @foreach ($modalidads as $modalidad)
         <tr>
-            <td>{{ $modalidad->id}}</td>
             <td>{{$modalidad->nombre}}</td>
             <td>
                 <form action="{{ route ('modalidad.destroy',$modalidad->id)}}" method="POST">

@@ -15,9 +15,9 @@
       <option selected value="">Alumnos</option>
       @foreach ($alumnos as $alumno )
           <option value="{{$alumno->idalumno}}">{{$alumno->name}} {{$alumno->paterno}} {{$alumno->materno}}</option>
-  
+
       @endforeach
-  
+
     </select>
     </div>
   <div class="mb-3">
@@ -40,7 +40,6 @@
 <table id="alumno" class="table table-striped table-bordered shadow-lg mt-4" style="width:100%">
     <thead class="bg-primary text-white">
         <tr>
-            <th scope="col">ID</th>
             <th scope="col">Alumno</th>
             <th scope="col">Docente Asignado</th>
             <th scope="col">Carrera</th>
@@ -49,7 +48,6 @@
     <tbody>
         @foreach ($asigns as $asign)
         <tr>
-            <td>{{$asign->id}}</td>
             <td>{{$asign->namea}} {{$asign->paternoa}} {{$asign->maternoa}}</td>
             <td>{{$asign->name}} {{$asign->paterno}} {{$asign->materno}}</td>
             <td>{{$asign->carrera}}</td>

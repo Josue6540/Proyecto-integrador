@@ -105,7 +105,7 @@ class CarrerasController extends Controller
         $modalidades = Modalidad::all();
         $sistemas = Sistema::all();
         $carreras = Carrera::find($id);
-        $carreras->nombre= $request->nombre;
+        $carreras->nombre= $request->Nombre;
         $carreras->logo= $request->logo;
         $carreras->numero= $request->numero;
         $carreras->modalidad_id= $request->modalidad;

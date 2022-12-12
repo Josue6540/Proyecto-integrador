@@ -16,7 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('/offline', function () {
+    return view('vendor/laravelpwa/offline');
+});
 Route::resource('cita','App\Http\Controllers\CitasController')->middleware('admin');
 Route::resource('sistema','App\Http\Controllers\SistemasController')->middleware('admin');
 Route::resource('indexsistema','App\Http\Controllers\SistemasController')->middleware('admin');

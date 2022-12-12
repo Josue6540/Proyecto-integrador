@@ -13,14 +13,12 @@
 <table id="sistemas" class="table table-striped table-bordered shadow-lg mt-4" style="width:100%">
     <thead class="bg-primary text-white">
         <tr>
-            <th scope="col">ID</th>
             <th scope="col">Nombre</th>
         </tr>
     </thead>
     <tbody>
         @foreach ($sistemas as $sistema)
         <tr>
-            <td>{{ $sistema->id}}</td>
             <td>{{$sistema->nombre}}</td>
             <td>
                 <a href="/sistema/{{ $sistema->id}}/edit" class="btn btn-info">Editar</a>

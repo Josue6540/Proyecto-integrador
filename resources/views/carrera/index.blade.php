@@ -13,7 +13,6 @@
 <table id="carreras" class="table table-striped table-bordered shadow-lg mt-4" style="width:100%">
     <thead class="bg-primary text-white">
         <tr>
-            <th scope="col">ID</th>
             <th scope="col">Nombre</th>
             <th scope="col">Logo</th>
             <th scope="col">Numero</th>
@@ -27,7 +26,6 @@
     <tbody>
         @foreach ($carreras as $carrera)
         <tr>
-            <td>{{$carrera->id}}</td>
             <td>{{$carrera->nombre}}</td>
             <td><img src ="{{asset("images/".$carrera->logo)}}" width="50" height="50"> </td>
             <td>{{$carrera->numero}}</td>

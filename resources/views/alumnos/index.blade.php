@@ -17,7 +17,6 @@
 <table id="alumno" class="table table-striped table-bordered shadow-lg mt-4" style="width:100%">
     <thead class="bg-primary text-white">
         <tr>
-            <th scope="col">ID</th>
             <th scope="col">Nombre</th>
             <th scope="col">Apellido paterno</th>
             <th scope="col">Apellido materno</th>
@@ -31,7 +30,6 @@
     <tbody>
         @foreach ($alumnos as $alumno)
         <tr>
-            <td>{{$alumno->id}}</td>
             <td>{{$alumno->user->name}}</td>
             <td>{{$alumno->user->paterno}}</td>
             <td>{{$alumno->user->materno}}</td>

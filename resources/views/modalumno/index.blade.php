@@ -68,12 +68,12 @@
                                    </form>
                                 </li>
                                 @endauth
-  
+
                                   @guest
                                    <li> <a href="{{ route('login') }}">Iniciar sesion</a> </li>
                                    <li> <a href="{{ route('register') }}">Registrar</a> </li>
                                   @endguest
-  
+
                              </ul>
                         </nav>
                      </div>
@@ -87,9 +87,9 @@
       <div class="container">
 
         <h2>Recuerda cargar tus documentos a tiempo!</h2>
-      
+
       <table id="alumno" class="table table-striped table-bordered shadow-lg mt-4" style="width:100%">
-         <tbody> 
+         <tbody>
             <tr>
                <form action="/carta_aceptacion" enctype="multipart/form-data" method="POST">
                   @csrf
@@ -104,7 +104,7 @@
                         $alumno = App\Models\Alumno::where('user_id', Auth::user()->id)->get();
                         $carta_aceptacion = DB::table('documents')->where([['type','carta aceptacion'],['alumno_id',$alumno[0]['id']]])->latest()->first();
                      @endphp
-                     <input name="observacion" required type="text" class="form-control" 
+                     <input name="observacion" required type="text" class="form-control"
                      value="{{ (isset($carta_aceptacion->nombre)) ? $carta_aceptacion->nombre : '' }}" tabindex="1" autocomplete="off">
                   </td>
                   <td>
@@ -131,7 +131,7 @@
                         $alumno = App\Models\Alumno::where('user_id', Auth::user()->id)->get();
                         $carta_aceptacion = DB::table('documents')->where([['type','carta presentacion'],['alumno_id',$alumno[0]['id']]])->latest()->first();
                      @endphp
-                     <input name="observacion" required type="text" class="form-control" 
+                     <input name="observacion" required type="text" class="form-control"
                      value="{{ (isset($carta_aceptacion->nombre)) ? $carta_aceptacion->nombre : '' }}" tabindex="1" autocomplete="off">
                   </td>
                   <td>
@@ -154,7 +154,7 @@
                      <input name="titulo" required type="text" class="form-control" tabindex="1" autocomplete="off">
                   </td>
                   <td>
-                     
+
                   </td>
                   <td>
                      @php
@@ -182,7 +182,7 @@
                         $alumno = App\Models\Alumno::where('user_id', Auth::user()->id)->get();
                         $carta_aceptacion = DB::table('documents')->where([['type','reportes'],['alumno_id',$alumno[0]['id']]])->latest()->first();
                      @endphp
-                     <input name="observacion" required type="text" class="form-control" 
+                     <input name="observacion" required type="text" class="form-control"
                      value="{{ (isset($carta_aceptacion->nombre)) ? $carta_aceptacion->nombre : '' }}" tabindex="1" autocomplete="off">
                   </td>
                   <td>
@@ -209,7 +209,7 @@
                         $alumno = App\Models\Alumno::where('user_id', Auth::user()->id)->get();
                         $carta_aceptacion = DB::table('documents')->where([['type','evaluaciones'],['alumno_id',$alumno[0]['id']]])->latest()->first();
                      @endphp
-                     <input name="observacion" required type="text" class="form-control" 
+                     <input name="observacion" required type="text" class="form-control"
                      value="{{ (isset($carta_aceptacion->nombre)) ? $carta_aceptacion->nombre : '' }}" tabindex="1" autocomplete="off">
                   </td>
                   <td>
@@ -236,7 +236,7 @@
                         $alumno = App\Models\Alumno::where('user_id', Auth::user()->id)->get();
                         $carta_aceptacion = DB::table('documents')->where([['type','carta liberacion'],['alumno_id',$alumno[0]['id']]])->latest()->first();
                      @endphp
-                     <input name="observacion" required type="text" class="form-control" 
+                     <input name="observacion" required type="text" class="form-control"
                      value="{{ (isset($carta_aceptacion->nombre)) ? $carta_aceptacion->nombre : '' }}" tabindex="1" autocomplete="off">
                   </td>
                   <td>
@@ -260,53 +260,8 @@
 
       <!-- end Testimonial -->
       <!--  footer -->
-      <footr>
-         <div class="footer">
-            <div class="container">
-               <div class="row">
-                  <div class="col-lg-2 col-md-6 col-sm-12 width">
-                     <div class="address">
-                        <h3>Address</h3>
-                        <i><img src="icon/3.png">Locations</i>
-                     </div>
-                  </div>
-                  <div class="col-lg-2 col-md-6 col-sm-12 width">
-                     <div class="address">
-                        <h3>Menus</h3>
-                        <i><img src="icon/2.png">Locations</i>
-                     </div>
-                  </div>
-                  <div class="col-lg-2 col-md-6 col-sm-12 width">
-                     <div class="address">
-                        <h3>Useful Linkes</h3>
-                        <i><img src="icon/1.png">Locations</i>
-                     </div>
-                  </div>
-                  <div class="col-lg-2 col-md-6 col-sm-12 width">
-                     <div class="address">
-                        <h3>Social Media </h3>
-                        <ul class="contant_icon">
-                           <li><img src="icon/fb.png" alt="icon"/></li>
-                           <li><img src="icon/tw.png" alt="icon"/></li>
-                           <li><img src="icon/lin(2).png" alt="icon"/></li>
-                           <li><img src="icon/instagram.png" alt="icon"/></li>
-                        </ul>
-                     </div>
-                  </div>
-                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 width">
-                     <div class="address">
-                        <h3>Newsletter </h3>
-                        <input class="form-control" placeholder="Enter your email" type="type" name="Enter your email">
-                        <button class="submit-btn">Subscribe</button>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="copyright">
-               <p>Echo por Josue Gallosso Cruz</a></p>
-            </div>
-         </div>
-      </footr>
+
+
       <!-- end footer -->
       <!-- Javascript files-->
       <script src="js/jquery.min.js"></script>
