@@ -14,6 +14,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+/*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});*/
+
+
+Route::group(
+    ['middleware' => ['cors'], 'prefix' => 'auth']
+, function () {
+    Route::post('login', 'App\Http\Controllers\Api\AuthController@login');
+    Route::group(['middleware' => ['auth:api']], function() {
+        Route::get('logout', 'App\Http\Controllers\Api\AuthController@logout');
+    });
+});
+
+Route::group([
+    'prefix' => 'app'
+], function () {
+    Route::group(
+      ['middleware' => ['auth:api', 'cors']
+    ], function() {
+        Route::get('getproject/{id}', 'App\Http\Controllers\Api\ProjectController@getproject');
+    });
 });

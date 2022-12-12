@@ -341,7 +341,11 @@ return [
             'url'  => '/asignar',
             'icon' => 'fas fa-fw fa-lock',
         ],
-
+        [
+            'text' => 'Generar Reporte',
+            'url'  => '/report',
+            'icon' => 'fas fa-fw fa-lock',
+        ],
 
     ],
 

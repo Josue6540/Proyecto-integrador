@@ -67,6 +67,7 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\ValidarAdmin::class,
         'alumno' => \App\Http\Middleware\ValidarAlumno::class,
         'docente' => \App\Http\Middleware\ValidarDocente::class,
+        'cors' => \App\Http\Middleware\Cors::class,
 
 
 

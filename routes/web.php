@@ -48,6 +48,13 @@ Route::post('reportes','App\Http\Controllers\AsignarDocenteController@reportes')
 Route::post('evaluaciones','App\Http\Controllers\AsignarDocenteController@evaluaciones');
 Route::post('carta_liberacion','App\Http\Controllers\AsignarDocenteController@carta_liberacion');
 
+Route::post('addcomment','App\Http\Controllers\AsignarDocenteController@addcomment');
+Route::post('deletecomment/{id}','App\Http\Controllers\AsignarDocenteController@deletecomment');
+Route::post('deletedocument/{id}','App\Http\Controllers\AsignarDocenteController@deletedocument');
+
+Route::get('report','App\Http\Controllers\AsignarDocenteController@report');
+Route::post('generatereport','App\Http\Controllers\AsignarDocenteController@generatereport');
+
 
 
 
