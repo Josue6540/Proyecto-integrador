@@ -88,22 +88,12 @@
         <table id="alumno" class="table table-striped table-bordered shadow-lg mt-4" style="width:100%">
             <tbody> 
                <tr>
-                  <form action="/carta_aceptacion" enctype="multipart/form-data" method="POST">
-                     @csrf
                      <td style="color:black">
                         Carta de Aceptacion
-                     </td>
-                     <td>
                         @php
                            $alumno = App\Models\Alumno::where('id', $alumnoshow)->get();
                            $carta_aceptacion = DB::table('documents')->where([['type','carta aceptacion'],['alumno_id',$alumno[0]['id']]])->latest()->first();
                         @endphp
-                        @if(isset($carta_aceptacion->id))
-                        <input class="form-control" type="text" name='record' value="{{$carta_aceptacion->id}}" hidden>
-                        <input class="form-control" type="text" name='alumno' value="{{$alumnoshow}}" hidden>
-                        @endif
-                        <input name="observacion" required type="text" class="form-control" 
-                        value="{{ (isset($carta_aceptacion->nombre)) ? $carta_aceptacion->nombre : '' }}" tabindex="1" autocomplete="off">
                      </td>
                      <td>
                         @if(isset($carta_aceptacion->document))
@@ -111,158 +101,241 @@
                         @endif
                      </td>
                      <td>
-                        @if(isset($carta_aceptacion->id))
-                        <button type="submit" class="btn btn-primary" tabindex="4">Guardar</button>
+                        @if(isset($carta_aceptacion->document))
+                           <form action="/addcomment" method="post">
+                              @csrf
+                              <input name="type" required type="text" class="form-control" tabindex="1" autocomplete="off" value="{{$carta_aceptacion->type}}" hidden>
+                              <input name="alumno" required type="text" class="form-control" tabindex="1" autocomplete="off" value="{{$carta_aceptacion->alumno_id}}" hidden>
+                              <input name="comment" required type="text" class="form-control" tabindex="1" autocomplete="off">
+                              <button type="submit" class="btn btn-primary" tabindex="4">Guardar Comentario</button>
+                           </form>
                         @endif
                      </td>
-                  </form>
+                     <td style="color:black">
+                        @if(isset($carta_aceptacion->document))
+                           @php
+                              $carta_aceptacion_comments = DB::table('comments_document')->where([['type', $carta_aceptacion->type],['alumno_id', $carta_aceptacion->alumno_id]])->orderBy('created_at','DESC')->get();
+                           @endphp
+                           @foreach ($carta_aceptacion_comments as $item)
+                              > {{ $item->comment}} <br> ( {{ $item->created_at }} ) <br> 
+                              <!--<form action="/deletecomment/{{$item->id}}" method="POST">
+                                 @csrf
+                                 <button type="submit" class="btn btn-danger">Borrar</button>
+                              </form>-->
+                           @endforeach
+                        @endif
+                     </td>
                </tr>
                <tr>
-                  <form action="/carta_presentacion" enctype="multipart/form-data" method="POST">
-                     @csrf
                      <td style="color:black">
                         Carta de Precentacion
-                     </td>
-                     <td>
                         @php
                            $alumno = App\Models\Alumno::where('id', $alumnoshow)->get();
-                           $carta_aceptacion = DB::table('documents')->where([['type','carta presentacion'],['alumno_id',$alumno[0]['id']]])->latest()->first();
+                           $carta_presentacion = DB::table('documents')->where([['type','carta presentacion'],['alumno_id',$alumno[0]['id']]])->latest()->first();
                         @endphp
-                        @if(isset($carta_aceptacion->id))
-                        <input class="form-control" type="text" name='record' value="{{$carta_aceptacion->id}}" hidden>
-                        <input class="form-control" type="text" name='alumno' value="{{$alumnoshow}}" hidden>
-                        @endif
-                        <input name="observacion" required type="text" class="form-control" 
-                        value="{{ (isset($carta_aceptacion->nombre)) ? $carta_aceptacion->nombre : '' }}" tabindex="1" autocomplete="off">
                      </td>
                      <td>
-                        @if(isset($carta_aceptacion->document))
-                        <a href="{{asset("images/".$carta_aceptacion->document."")}}" target="_blank" class="btn btn-danger">Ver</a>
+                        @if(isset($carta_presentacion->document))
+                        <a href="{{asset("images/".$carta_presentacion->document."")}}" target="_blank" class="btn btn-danger">Ver</a>
                         @endif
                      </td>
                      <td>
-                        @if(isset($carta_aceptacion->id))
-                        <button type="submit" class="btn btn-primary" tabindex="4">Guardar</button>
+                        @if(isset($carta_presentacion->document))
+                           <form action="/addcomment" method="post">
+                              @csrf
+                              <input name="type" required type="text" class="form-control" tabindex="1" autocomplete="off" value="{{$carta_presentacion->type}}" hidden>
+                              <input name="alumno" required type="text" class="form-control" tabindex="1" autocomplete="off" value="{{$carta_presentacion->alumno_id}}" hidden>
+                              <input name="comment" required type="text" class="form-control" tabindex="1" autocomplete="off">
+                              <button type="submit" class="btn btn-primary" tabindex="4">Guardar Comentario</button>
+                           </form>
                         @endif
                      </td>
-                  </form>
+                     <td style="color:black">
+                        @if(isset($carta_presentacion->document))
+                           @php
+                              $carta_presentacion_comments = DB::table('comments_document')->where([['type', $carta_presentacion->type],['alumno_id', $carta_presentacion->alumno_id]])->orderBy('created_at','DESC')->get();
+                           @endphp
+                           @foreach ($carta_presentacion_comments as $item)
+                              > {{ $item->comment}} <br> ( {{ $item->created_at }} ) <br> 
+                              <!--<form action="/deletecomment/{{$item->id}}" method="POST">
+                                 @csrf
+                                 <button type="submit" class="btn btn-danger">Borrar</button>
+                              </form>-->
+                           @endforeach
+                        @endif
+                     </td>
                </tr>
                <tr>
-                  <form action="/titulo" method="POST">
-                     @csrf
                      <td style="color:black">
                         Titulo de proyecto
-                     </td>
-                     <td>
-                        <input name="titulo" required type="text" class="form-control" tabindex="1" autocomplete="off">
-                     </td>
-                     <td>
                         @php
                            $alumno = App\Models\Alumno::where('id', $alumnoshow)->get();
                            $titulo = DB::table('documents')->where([['type','titulo'],['alumno_id',$alumno[0]['id']]])->latest()->first();
                         @endphp
-                        @if(isset($titulo->id))
-                        <input class="form-control" type="text" name='record' value="{{$titulo->id}}" hidden>
-                        <input class="form-control" type="text" name='alumno' value="{{$alumnoshow}}" hidden>
-                        @endif
+                     </td>
+                     <td>
                         {{ (isset($titulo->nombre)) ? $titulo->nombre : '' }}
                      </td>
                      <td>
-                        @if(isset($titulo->id))
-                        <button type="submit" class="btn btn-primary" tabindex="4">Guardar</button>
+                        @if(isset($titulo->nombre))
+                           <form action="/addcomment" method="post">
+                              @csrf
+                              <input name="type" required type="text" class="form-control" tabindex="1" autocomplete="off" value="{{$titulo->type}}" hidden>
+                              <input name="alumno" required type="text" class="form-control" tabindex="1" autocomplete="off" value="{{$titulo->alumno_id}}" hidden>
+                              <input name="comment" required type="text" class="form-control" tabindex="1" autocomplete="off">
+                              <button type="submit" class="btn btn-primary" tabindex="4">Guardar Comentario</button>
+                           </form>
                         @endif
                      </td>
-                  </form>
+                     <td style="color:black">
+                        @if(isset($titulo->nombre))
+                           @php
+                              $titulo_comments = DB::table('comments_document')->where([['type', $titulo->type],['alumno_id', $titulo->alumno_id]])->orderBy('created_at','DESC')->get();
+                           @endphp
+                           @foreach ($titulo_comments as $item)
+                              > {{ $item->comment}} <br> ( {{ $item->created_at }} ) <br> 
+                              <!--<form action="/deletecomment/{{$item->id}}" method="POST">
+                                 @csrf
+                                 <button type="submit" class="btn btn-danger">Borrar</button>
+                              </form>-->
+                           @endforeach
+                        @endif
+                     </td>
                </tr>
                <tr>
-                  <form action="/reportes" enctype="multipart/form-data" method="POST">
-                     @csrf
                      <td style="color:black">
                         Reportes
-                     </td>
-                     <td>
                         @php
                            $alumno = App\Models\Alumno::where('id', $alumnoshow)->get();
-                           $carta_aceptacion = DB::table('documents')->where([['type','reportes'],['alumno_id',$alumno[0]['id']]])->latest()->first();
+                           $reportes = DB::table('documents')->where([['type','reportes'],['alumno_id',$alumno[0]['id']]])->latest()->first();
                         @endphp
-                        @if(isset($carta_aceptacion->id))
-                        <input class="form-control" type="text" name='record' value="{{$carta_aceptacion->id}}" hidden>
-                        <input class="form-control" type="text" name='alumno' value="{{$alumnoshow}}" hidden>
-                        @endif
-                        <input name="observacion" required type="text" class="form-control" 
-                        value="{{ (isset($carta_aceptacion->nombre)) ? $carta_aceptacion->nombre : '' }}" tabindex="1" autocomplete="off">
                      </td>
                      <td>
-                        @if(isset($carta_aceptacion->document))
-                        <a href="{{asset("images/".$carta_aceptacion->document."")}}" target="_blank" class="btn btn-danger">Ver</a>
+                        @if(isset($reportes->document))
+                        @php
+                        $alumno = App\Models\Alumno::where('id', $alumnoshow)->get();
+                        $reportes2 = DB::table('documents')->where([['type','reportes'],['alumno_id',$alumno[0]['id']]])->get();
+                        @endphp
+                        <!--{{ $cont=1 }}-->
+                           @foreach($reportes2 as $item)
+                              <a href="{{asset("images/".$item->document."")}}" target="_blank" class="btn btn-danger mb-2">Ver R{{$cont++}}</a>
+                              <br>
+                              <br>
+                           @endforeach
                         @endif
                      </td>
                      <td>
-                        @if(isset($carta_aceptacion->id))
-                        <button type="submit" class="btn btn-primary" tabindex="4">Guardar</button>
+                        @if(isset($reportes->document))
+                           <form action="/addcomment" method="post">
+                              @csrf
+                              <input name="type" required type="text" class="form-control" tabindex="1" autocomplete="off" value="{{$reportes->type}}" hidden>
+                              <input name="alumno" required type="text" class="form-control" tabindex="1" autocomplete="off" value="{{$reportes->alumno_id}}" hidden>
+                              <input name="comment" required type="text" class="form-control" tabindex="1" autocomplete="off">
+                              <button type="submit" class="btn btn-primary" tabindex="4">Guardar Comentario</button>
+                           </form>
                         @endif
                      </td>
-                  </form>
+                     <td style="color:black">
+                        @if(isset($reportes->document))
+                           @php
+                              $reportes_comments = DB::table('comments_document')->where([['type', $reportes->type],['alumno_id', $reportes->alumno_id]])->orderBy('created_at','DESC')->get();
+                           @endphp
+                           @foreach ($reportes_comments as $item)
+                              > {{ $item->comment}} <br> ( {{ $item->created_at }} ) <br> 
+                              <!--<form action="/deletecomment/{{$item->id}}" method="POST">
+                                 @csrf
+                                 <button type="submit" class="btn btn-danger">Borrar</button>
+                              </form>-->
+                           @endforeach
+                        @endif
                </tr>
                <tr>
-                  <form action="/evaluaciones" enctype="multipart/form-data" method="POST">
-                     @csrf
                      <td style="color:black">
                         Evaluaciones
-                     </td>
-                     <td>
                         @php
                            $alumno = App\Models\Alumno::where('id', $alumnoshow)->get();
-                           $carta_aceptacion = DB::table('documents')->where([['type','evaluaciones'],['alumno_id',$alumno[0]['id']]])->latest()->first();
+                           $evaluaciones = DB::table('documents')->where([['type','evaluaciones'],['alumno_id',$alumno[0]['id']]])->latest()->first();
                         @endphp
-                        @if(isset($carta_aceptacion->id))
-                        <input class="form-control" type="text" name='record' value="{{$carta_aceptacion->id}}" hidden>
-                        <input class="form-control" type="text" name='alumno' value="{{$alumnoshow}}" hidden>
-                        @endif
-                        <input name="observacion" required type="text" class="form-control" 
-                        value="{{ (isset($carta_aceptacion->nombre)) ? $carta_aceptacion->nombre : '' }}" tabindex="1" autocomplete="off">
                      </td>
                      <td>
-                        @if(isset($carta_aceptacion->document))
-                        <a href="{{asset("images/".$carta_aceptacion->document."")}}" target="_blank" class="btn btn-danger">Ver</a>
+                        @if(isset($evaluaciones->document))
+                        @php
+                        $alumno = App\Models\Alumno::where('id', $alumnoshow)->get();
+                        $evaluaciones2 = DB::table('documents')->where([['type','evaluaciones'],['alumno_id',$alumno[0]['id']]])->get();
+                        @endphp
+                        <!--{{ $cont=1 }}-->
+                           @foreach($evaluaciones2 as $item)
+                              <a href="{{asset("images/".$item->document."")}}" target="_blank" class="btn btn-danger mb-2">Ver EV{{$cont++}}</a>
+                              <br>
+                              <br>
+                           @endforeach
                         @endif
                      </td>
                      <td>
-                        @if(isset($carta_aceptacion->id))
-                        <button type="submit" class="btn btn-primary" tabindex="4">Guardar</button>
+                        @if(isset($evaluaciones->document))
+                           <form action="/addcomment" method="post">
+                              @csrf
+                              <input name="type" required type="text" class="form-control" tabindex="1" autocomplete="off" value="{{$evaluaciones->type}}" hidden>
+                              <input name="alumno" required type="text" class="form-control" tabindex="1" autocomplete="off" value="{{$evaluaciones->alumno_id}}" hidden>
+                              <input name="comment" required type="text" class="form-control" tabindex="1" autocomplete="off">
+                              <button type="submit" class="btn btn-primary" tabindex="4">Guardar Comentario</button>
+                           </form>
                         @endif
                      </td>
-                  </form>
+                     <td style="color:black">
+                        @if(isset($evaluaciones->document))
+                           @php
+                              $evaluaciones_comments = DB::table('comments_document')->where([['type', $evaluaciones->type],['alumno_id', $evaluaciones->alumno_id]])->orderBy('created_at','DESC')->get();
+                           @endphp
+                           @foreach ($evaluaciones_comments as $item)
+                              > {{ $item->comment}} <br> ( {{ $item->created_at }} ) <br> 
+                              <!--<form action="/deletecomment/{{$item->id}}" method="POST">
+                                 @csrf
+                                 <button type="submit" class="btn btn-danger">Borrar</button>
+                              </form>-->
+                           @endforeach
+                        @endif
+                     </td>
                </tr>
                <tr>
-                  <form action="/carta_liberacion" enctype="multipart/form-data" method="POST">
-                     @csrf
                      <td style="color:black">
                         Carta de Liberacion
-                     </td>
-                     <td>
                         @php
-                           $alumno = App\Models\Alumno::where('id', $alumnoshow)->get();
-                           $carta_aceptacion = DB::table('documents')->where([['type','carta liberacion'],['alumno_id',$alumno[0]['id']]])->latest()->first();
+                        $alumno = App\Models\Alumno::where('id', $alumnoshow)->get();
+                        $carta_liberacion = DB::table('documents')->where([['type','carta liberacion'],['alumno_id',$alumno[0]['id']]])->latest()->first();
                         @endphp
-                        @if(isset($carta_aceptacion->id))
-                        <input class="form-control" type="text" name='record' value="{{$carta_aceptacion->id}}" hidden>
-                        <input class="form-control" type="text" name='alumno' value="{{$alumnoshow}}" hidden>
-                        @endif
-                        <input name="observacion" required type="text" class="form-control" 
-                        value="{{ (isset($carta_aceptacion->nombre)) ? $carta_aceptacion->nombre : '' }}" tabindex="1" autocomplete="off">
                      </td>
                      <td>
-                        @if(isset($carta_aceptacion->document))
-                        <a href="{{asset("images/".$carta_aceptacion->document."")}}" target="_blank" class="btn btn-danger">Ver</a>
+                        @if(isset($carta_liberacion->document))
+                        <a href="{{asset("images/".$carta_liberacion->document."")}}" target="_blank" class="btn btn-danger">Ver</a>
                         @endif
                      </td>
                      <td>
-                        @if(isset($carta_aceptacion->id))
-                        <button type="submit" class="btn btn-primary" tabindex="4">Guardar</button>
+                        @if(isset($carta_liberacion->document))
+                           <form action="/addcomment" method="post">
+                              @csrf
+                              <input name="type" required type="text" class="form-control" tabindex="1" autocomplete="off" value="{{$carta_liberacion->type}}" hidden>
+                              <input name="alumno" required type="text" class="form-control" tabindex="1" autocomplete="off" value="{{$carta_liberacion->alumno_id}}" hidden>
+                              <input name="comment" required type="text" class="form-control" tabindex="1" autocomplete="off">
+                              <button type="submit" class="btn btn-primary" tabindex="4">Guardar Comentario</button>
+                           </form>
                         @endif
                      </td>
-                  </form>
+                     <td style="color:black">
+                        @if(isset($carta_liberacion->document))
+                           @php
+                              $carta_liberacion_comments = DB::table('comments_document')->where([['type', $carta_liberacion->type],['alumno_id', $carta_liberacion->alumno_id]])->orderBy('created_at','DESC')->get();
+                           @endphp
+                           @foreach ($carta_liberacion_comments as $item)
+                              > {{ $item->comment}} <br> ( {{ $item->created_at }} ) <br> 
+                              <!--<form action="/deletecomment/{{$item->id}}" method="POST">
+                                 @csrf
+                                 <button type="submit" class="btn btn-danger">Borrar</button>
+                              </form>-->
+                           @endforeach
+                        @endif
+                     </td>
+
                </tr>
             </tbody>
          </table>
